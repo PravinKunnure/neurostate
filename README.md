@@ -1,7 +1,6 @@
 # 🧠 NeuroState
 
-[![Pub Version](https://img.shields.io/pub/v/neurostate)](https://pub.dev/packages/neurostate)  
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
+[![Pub Version](https://img.shields.io/pub/v/neurostate-blue)](https://pub.dev/packages/neurostate) | [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 
 **Intelligent, AI-augmented predictive state management for modern Flutter applications.**
 

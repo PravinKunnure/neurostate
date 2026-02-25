@@ -1,8 +1,55 @@
-import '../neurostate.dart';
+import 'predictor.dart';
+import 'dart:async';
 
-class RuleNeuroPredictor implements NeuroPredictor {
+/// Example state model
+class NeuroStateModel {
+  final bool typing;
+  final bool showRecommendations;
+  final bool preloadCheckout;
+  final bool prefetchDashboard;
+
+  const NeuroStateModel({
+    this.typing = false,
+    this.showRecommendations = false,
+    this.preloadCheckout = false,
+    this.prefetchDashboard = false,
+  });
+
+  NeuroStateModel copyWith({
+    bool? typing,
+    bool? showRecommendations,
+    bool? preloadCheckout,
+    bool? prefetchDashboard,
+  }) {
+    return NeuroStateModel(
+      typing: typing ?? this.typing,
+      showRecommendations: showRecommendations ?? this.showRecommendations,
+      preloadCheckout: preloadCheckout ?? this.preloadCheckout,
+      prefetchDashboard: prefetchDashboard ?? this.prefetchDashboard,
+    );
+  }
+
   @override
-  Future<Map<String, dynamic>> predict(
+  String toString() {
+    return '''
+NeuroStateModel(
+  typing: $typing,
+  showRecommendations: $showRecommendations,
+  preloadCheckout: $preloadCheckout,
+  prefetchDashboard: $prefetchDashboard
+)
+''';
+  }
+}
+
+/// Rule-based predictor implementation
+class RuleNeuroPredictor implements NeuroPredictor<NeuroStateModel> {
+  final NeuroStateModel currentState;
+
+  RuleNeuroPredictor({this.currentState = const NeuroStateModel()});
+
+  @override
+  Future<NeuroStateModel> predict(
     String event,
     Map<String, dynamic> payload,
   ) async {
@@ -10,16 +57,19 @@ class RuleNeuroPredictor implements NeuroPredictor {
 
     switch (event) {
       case "open_chat":
-        return {"typing": true};
+        return currentState.copyWith(typing: true);
 
       case "open_cart":
-        return {"showRecommendations": true, "preloadCheckout": true};
+        return currentState.copyWith(
+          showRecommendations: true,
+          preloadCheckout: true,
+        );
 
       case "login_success":
-        return {"prefetchDashboard": true};
+        return currentState.copyWith(prefetchDashboard: true);
 
       default:
-        return {};
+        return currentState;
     }
   }
 }

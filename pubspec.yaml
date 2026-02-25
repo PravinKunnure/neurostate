@@ -1,6 +1,6 @@
 name: neurostate
 description: "Intelligent, AI-augmented predictive state management for modern Flutter applications."
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/PravinKunnure/neurostate
 repository: https://github.com/PravinKunnure/neurostate.git
 
